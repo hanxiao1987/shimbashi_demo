@@ -693,7 +693,7 @@ s_lats = [c_lat + (s_radius / lat_sc_v) * math.sin(a) for a in angles]
 s_lons = [c_lon + (s_radius / lon_sc_v) * math.cos(a) for a in angles]
 fig_check.add_trace(go.Scattermapbox(
     lat=s_lats + [s_lats[0]], lon=s_lons + [s_lons[0]], mode="lines",
-    line=dict(color="rgba(50,100,255,0.5)", width=1.5, dash="dot"),
+    line=dict(color="rgba(50,100,255,0.5)", width=1.5),
     fill="toself", fillcolor="rgba(50,100,255,0.04)",
     name=f"周辺エリア ({s_radius}m)", hoverinfo="skip",
 ))
@@ -844,7 +844,7 @@ fig_res.add_trace(go.Scattermapbox(
 ))
 fig_res.add_trace(go.Scattermapbox(
     lat=s_lats + [s_lats[0]], lon=s_lons + [s_lons[0]], mode="lines",
-    line=dict(color="rgba(100,100,255,0.4)", width=1.5, dash="dot"),
+    line=dict(color="rgba(100,100,255,0.4)", width=1.5),
     fill="toself", fillcolor="rgba(100,100,255,0.04)",
     name=f"周辺エリア ({s_radius}m)", hoverinfo="skip",
 ))
