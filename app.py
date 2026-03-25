@@ -822,9 +822,9 @@ bldg_agg = (
 )
 
 purpose_agg = (
-    result.groupby("purpose")["member_id"].nunique()
-    .reset_index().rename(columns={"member_id": "visitors"})
-    .sort_values("visitors", ascending=False)
+    result.groupby("purpose")["stay_duration_min"].sum()
+    .reset_index().rename(columns={"stay_duration_min": "total_stay_min"})
+    .sort_values("total_stay_min", ascending=False)
 )
 
 hour_agg = (
@@ -876,8 +876,8 @@ col1, col2 = st.columns([1, 2])
 
 with col1:
     fig_pie = px.pie(
-        purpose_agg, values="visitors", names="purpose",
-        title="目的別 滞在者割合",
+        purpose_agg, values="total_stay_min", names="purpose",
+        title="目的別 滞在時間合計割合",
         color="purpose",
         color_discrete_map={v["purpose"]: v["color"] for v in DOOH_MAP.values()},
         hole=0.38,
@@ -910,7 +910,7 @@ for _, row in purpose_agg.iterrows():
     d = DOOH_MAP[usage]
     dooh_rows.append({
         " ": d["icon"], "滞在目的": row["purpose"],
-        "滞在者数": f"{row['visitors']:,} 人",
+        "滞在時間合計": f"{int(row['total_stay_min']):,} 分",
         "ターゲット層": d["audience"],
         "DOOH訴求カテゴリ": d["dooh_cat"],
         "推奨ブランド例": " / ".join(d["brands"]),
